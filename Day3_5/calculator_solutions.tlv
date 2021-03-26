@@ -24,7 +24,7 @@
    
       @2
          $valid[0] = $cnt[0];
-         $out[31:0] = ($reset || $valid[0]) ? 0 : (($op[1:0] == 2'b00) ? $sum[31:0] : (($op[1:0] == 2'b01) ? $diff[31:0] : (($op[1:0] == 2'b10) ? $prod[31:0] : $quot[31:0])));
+         $out[31:0] = ($reset || ! $valid[0]) ? 0 : (($op[1:0] == 2'b00) ? $sum[31:0] : (($op[1:0] == 2'b01) ? $diff[31:0] : (($op[1:0] == 2'b10) ? $prod[31:0] : $quot[31:0])));
          
 
       // Macro instantiations for calculator visualization(disabled by default).
