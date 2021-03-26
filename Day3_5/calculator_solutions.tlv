@@ -9,22 +9,24 @@
 
 \TLV
    |calc
+      @0
+        $reset = *reset; 
       @1
-         $reset = *reset;
+         $valid_or_reset = $valid || $reset;
          
+         $valid[0] = $reset ? 0 : (1 + >>1$valid[0]);
          $val1[31:0] = >>2$out[31:0];
          $val2[31:0] = $rand2[3:0];
-   
-         $sum[31:0] = $val1[31:0] + $val2[31:0];
-         $diff[31:0] = $val1[31:0] - $val2[31:0];
-         $prod[31:0] = $val1[31:0] * $val2[31:0];
-         $quot[31:0] = $val1[31:0] / $val2[31:0];
          
-         $cnt[0] = $reset ? 0 : (1 + >>1$cnt[0]);
-   
-      @2
-         $valid[0] = $cnt[0];
-         $out[31:0] = ($reset || ! $valid[0]) ? 0 : (($op[1:0] == 2'b00) ? $sum[31:0] : (($op[1:0] == 2'b01) ? $diff[31:0] : (($op[1:0] == 2'b10) ? $prod[31:0] : $quot[31:0])));
+      ?$valid_or_reset
+         @1
+            $sum[31:0] = $val1[31:0] + $val2[31:0];
+            $diff[31:0] = $val1[31:0] - $val2[31:0];
+            $prod[31:0] = $val1[31:0] * $val2[31:0];
+            $quot[31:0] = $val1[31:0] / $val2[31:0];
+
+         @2
+            $out[31:0] = $reset ? 0 : (($op[1:0] == 2'b00) ? $sum[31:0] : (($op[1:0] == 2'b01) ? $diff[31:0] : (($op[1:0] == 2'b10) ? $prod[31:0] : $quot[31:0])));
          
 
       // Macro instantiations for calculator visualization(disabled by default).
@@ -46,6 +48,4 @@
 
 \SV
    endmodule
-
-https://myth1.makerchip.com/sandbox/082fjhwBL/03lhmBL
-
+https://myth1.makerchip.com/sandbox/082fjhwBL/03lhmBL#
