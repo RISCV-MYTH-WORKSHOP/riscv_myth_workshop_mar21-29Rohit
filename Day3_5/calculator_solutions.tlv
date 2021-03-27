@@ -12,7 +12,7 @@
       @0
         $reset = *reset; 
       @1
-         $valid_or_reset = $valid || $reset;
+         $valid_or_reset = $valid || $reset;// Function which nedded to be valid
          
          $valid[0] = $reset ? 0 : (1 + >>1$valid[0]);
          $val1[31:0] = >>2$out[31:0];
@@ -24,10 +24,10 @@
             $diff[31:0] = $val1[31:0] - $val2[31:0];
             $prod[31:0] = $val1[31:0] * $val2[31:0];
             $quot[31:0] = $val1[31:0] / $val2[31:0];
-
+            
          @2
-            $out[31:0] = $reset ? 0 : (($op[1:0] == 2'b00) ? $sum[31:0] : (($op[1:0] == 2'b01) ? $diff[31:0] : (($op[1:0] == 2'b10) ? $prod[31:0] : $quot[31:0])));
-         
+            $out[31:0] = $reset ? 0 : (($op[2:0] == 3'b000) ? $sum[31:0] : (($op[2:0] == 3'b001) ? $diff[31:0] : (($op[2:0] == 3'b010) ? $prod[31:0] : $quot[31:0])));
+            $mem[31:0] = $reset ? 0 : (($op[2:0] == 3'b101) ? $val1 : >>2$mem[31:0]);
 
       // Macro instantiations for calculator visualization(disabled by default).
       // Uncomment to enable visualisation, and also,
