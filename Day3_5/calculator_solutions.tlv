@@ -27,7 +27,7 @@
             
          @2
             $out[31:0] = $reset ? 0 : (($op[2:0] == 3'b000) ? $sum[31:0] : (($op[2:0] == 3'b001) ? $diff[31:0] : (($op[2:0] == 3'b010) ? $prod[31:0] : $quot[31:0])));
-            $mem[31:0] = $reset ? 0 : (($op[2:0] == 3'b101) ? $val1 : >>2$mem[31:0]);
+            $mem[31:0] = $reset ? 0 : (($op[2:0] == 3'b101) ? $val1 : >>2$mem[31:0]);// 3'b101=(mem)5
 
       // Macro instantiations for calculator visualization(disabled by default).
       // Uncomment to enable visualisation, and also,
@@ -49,4 +49,4 @@
 \SV
    endmodule
 
-https://myth1.makerchip.com/sandbox/09rfmh18g/0j2hj2v
+https://myth1.makerchip.com/sandbox/0rkfAhGzr/0nZhGVV
